@@ -2,4 +2,9 @@ extends layout
 
 block content
   h1= title
-  
+  h2 Here are Bath and Body Work Products
+  - var image_names = ["candle.png", "fragrance.png", "handsoap.png","mist1.png", "mist2.png"];
+  - for(let j=0;j<3;j++){
+     - let rand=Math.floor(Math.random()*5)
+     img(src=`/images/${image_names[rand]}` alt=`${rand}` height="300px" width="300px") 
+  - }
