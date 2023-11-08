@@ -19,14 +19,3 @@ router.get('/BBWORKS/:id', BBWORKS_controller.BBWORKS_detail);
 router.get('/BBWORKS', BBWORKS_controller.BBWORKS_list);
 module.exports = router;
 
-// List of all BBWORKS
-exports.BBWORKS_list = async function(req, res) {
-    try{
-    theBBWORKS = await BBWORKS.find();
-    res.send(theBBWORKS);
-    }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
-    }
-   };

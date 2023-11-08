@@ -20,3 +20,27 @@ exports.BBWORKS_update_put = function(req, res) {
  res.send('NOT IMPLEMENTED: Bath & Body Works Product update PUT' + req.params.id);
 };
 
+// List of all BBWORKS
+exports.BBWORKS_list = async function(req, res) {
+    try{
+    theBBWORKS = await BBWORKS.find();
+    res.send(theBBWORKS);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
+
+// VIEWS
+// Handle a show all view
+exports.BBWORKS_view_all_Page = async function(req, res) {
+    try{
+    theBBWORKS = await BBWORKS.find();
+    res.render('BBWORKS', { title: 'BBWORKS Search Results', results: theBBWORKS });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
