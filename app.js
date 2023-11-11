@@ -25,24 +25,24 @@ var resourceRouter = require('./routes/resource');
 var BBWORKS = require("./models/BBWORKS");
 
 // We can seed the collection if needed on server start
-async function recreateDB(){
- // Delete everything
- await BBWORKS.deleteMany();
- let instance1 = new BBWORKS({PRODUCT_NAME:"Gentle and Clean Foaming Hand Soap", PRODUCT_COLLECTION:'Winter Candy Apple', PRODUCT_PRICE:7.95});
- instance1.save().then(doc=>{
- console.log("First object saved")})
- let instance2 = new BBWORKS({PRODUCT_NAME:"Single Wick Candle", PRODUCT_COLLECTION:'A Thousand Wishes', PRODUCT_PRICE:15.95});
- instance2.save().then(doc=>{
- console.log("Second object saved")})
- let instance3 = new BBWORKS({PRODUCT_NAME:"Fine Fragrance Mist", PRODUCT_COLLECTION:'Strawberry SnowFlakes', PRODUCT_PRICE:17.95});
- instance3.save().then(doc=>{
- console.log("Third object saved")}
- ).catch(err=>{
- console.error(err)
- });
-}
-let reseed = true;
-if (reseed) {recreateDB();}
+// async function recreateDB(){
+//  // Delete everything
+//  await BBWORKS.deleteMany();
+//  let instance1 = new BBWORKS({PRODUCT_NAME:"Gentle and Clean Foaming Hand Soap", PRODUCT_COLLECTION:'Winter Candy Apple', PRODUCT_PRICE:7.95});
+//  instance1.save().then(doc=>{
+//  console.log("First object saved")})
+//  let instance2 = new BBWORKS({PRODUCT_NAME:"Single Wick Candle", PRODUCT_COLLECTION:'A Thousand Wishes', PRODUCT_PRICE:15.95});
+//  instance2.save().then(doc=>{
+//  console.log("Second object saved")})
+//  let instance3 = new BBWORKS({PRODUCT_NAME:"Fine Fragrance Mist", PRODUCT_COLLECTION:'Strawberry SnowFlakes', PRODUCT_PRICE:17.95});
+//  instance3.save().then(doc=>{
+//  console.log("Third object saved")}
+//  ).catch(err=>{
+//  console.error(err)
+//  });
+// }
+// let reseed = true;
+// if (reseed) {recreateDB();}
 
 var app = express();
 
