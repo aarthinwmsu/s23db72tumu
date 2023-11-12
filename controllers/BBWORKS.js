@@ -96,4 +96,15 @@ exports.BBWORKS_create_post = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
    };
-
+   exports.BBWORKS_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await BBWORKS.findById( req.query.id)
+    res.render('BBWORKSdetail',
+    { title: 'BBWORKS Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
