@@ -6,7 +6,7 @@ var BBWORKS_controller = require('../controllers/BBWORKS');
 /// API ROUTE ///
 // GET resources base.
 router.get('/', api_controller.api);
-/// COSTUME ROUTES ///
+/// BBWORKS ROUTES ///
 // POST request for creating a BBWORKS.
 router.post('/BBWORKS', BBWORKS_controller.BBWORKS_create_post);
 // DELETE request to delete BBWORKS.
@@ -17,5 +17,6 @@ router.put('/BBWORKS/:id', BBWORKS_controller.BBWORKS_update_put);
 router.get('/BBWORKS/:id', BBWORKS_controller.BBWORKS_detail);
 // GET request for list of all BBWORKS items.
 router.get('/BBWORKS', BBWORKS_controller.BBWORKS_list);
+
 module.exports = router;
 
