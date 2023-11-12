@@ -20,9 +20,17 @@ exports.BBWORKS_create_post = function(req, res) {
  res.send('NOT IMPLEMENTED: Bath & Body Works Product create POST');
 };
 // Handle BBWORKS delete form on DELETE.
-exports.BBWORKS_delete = function(req, res) {
- res.send('NOT IMPLEMENTED: Bath & Body Works Product delete DELETE ' + req.params.id);
-};
+exports.BBWORKS_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await BBWORKS.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+   };
 // Handle BBWORKS update form on PUT.
 exports.BBWORKS_update_put = async function(req, res) {
     console.log(`update on id ${req.params.id} with body
