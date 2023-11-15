@@ -1,21 +1,21 @@
 extends layout
-block content
-h1= title
-- let BBWORKSid = toShow._id
-- let PRODUCT_NAME = toShow.PRODUCT_NAME
-- let PRODUCT_COLLECTION = toShow.PRODUCT_COLLECTION
-- let PRODUCT_PRICE = toShow.PRODUCT_PRICE
-div
-div.row
-div(class='BBWORKSAttr mr-3') Product ID is:
-div #{BBWORKSid}
-div.row
-div(class='BBWORKSAttr mr-3') Product Name is:
-div #{PRODUCT_NAME}
-div.row
-div(class='BBWORKSAttr mr-3') Product Collection is:
-div #{PRODUCT_COLLECTION}
-div.row
-div(class='BBWORKSAttr mr-3') Product Price is:
-div #{PRODUCT_PRICE}
 
+block content
+    h1= title
+    - let BBWORKSid = toShow._id
+    - let PRODUCT_NAME = toShow.PRODUCT_NAME
+    - let PRODUCT_COLLECTION = toShow.PRODUCT_COLLECTION
+    - let PRODUCT_PRICE = toShow.PRODUCT_PRICE
+    div
+    div.row
+    div(class='BBWORKSAttr mr-3') Product ID is:
+    div #{BBWORKSid}
+    div.row
+    div(class='BBWORKSAttr mr-3') Product Name is:
+    div #{PRODUCT_NAME}
+    div.row
+    div(class='BBWORKSAttr mr-3') Product Collection is:
+    div #{PRODUCT_COLLECTION}
+    div.row
+    div(class='BBWORKSAttr mr-3') Product Price is:
+    div #{PRODUCT_PRICE}$

@@ -38,8 +38,8 @@ exports.BBWORKS_update_put = async function(req, res) {
     try {
     let toUpdate = await BBWORKS.findById( req.params.id)
     // Do updates of properties
-    if(req.body.BBWORKS_type)
-    toUpdate.BBWORKS_type = req.body.BBWORKS_type;
+    if(req.body.PRODUCT_NAME)
+    toUpdate.PRODUCT_NAME = req.body.PRODUCT_NAME;
     if(req.body.PRODUCT_PRICE) toUpdate.PRODUCT_PRICE = req.body.PRODUCT_PRICE;
     if(req.body.PRODUCT_COLLECTION) toUpdate.PRODUCT_COLLECTION = req.body.PRODUCT_COLLECTION;
     let result = await toUpdate.save();
@@ -96,15 +96,56 @@ exports.BBWORKS_create_post = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
    };
+
    exports.BBWORKS_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
     try{
     result = await BBWORKS.findById( req.query.id)
-    res.render('BBWORKSdetail',
-    { title: 'BBWORKS Detail', toShow: result });
+    res.render('BBWORKSdetail',{ title: 'BBWORKS Detail', toShow: result });
     }
     catch(err){
     res.status(500)
     res.send(`{'error': '${err}'}`);
     }
     };
+
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.BBWORKS_create_Page = async function(req, res) {
+    console.log("create view")
+    try {
+    res.render('BBWORKScreate', { title: 'BBWORKS Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    }; 
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.BBWORKS_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await BBWORKS.findById(req.query.id)
+    res.render('BBWORKSupdate', { title: 'BBWORKS Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+// Handle a delete one view with id from query
+exports.BBWORKS_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try {
+    result = await BBWORKS.findById(req.query.id)
+    res.render('BBWORKSdelete', { title: 'BBWORKS Delete', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };    

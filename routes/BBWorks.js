@@ -15,4 +15,10 @@ var router = express.Router();
 router.get('/', BBWORKS_controlers.BBWORKS_view_all_Page );
 /* GET detail BBWORKS page */
 router.get('/detail', BBWORKS_controlers.BBWORKS_view_one_Page);
+/* GET create BBWORKS page */
+router.get('/create', BBWORKS_controlers.BBWORKS_create_Page);
+/* GET create update page */
+router.get('/update', BBWORKS_controlers.BBWORKS_update_Page);
+/* GET delete BBWORKS page */
+router.get('/delete',  BBWORKS_controlers.BBWORKS_delete_Page);
 module.exports = router;
