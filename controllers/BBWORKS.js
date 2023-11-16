@@ -1,8 +1,4 @@
 var BBWORKS = require('../models/BBWORKS');
-// List of all BBWORKS
-exports.BBWORKS_list = function(req, res) {
- res.send('NOT IMPLEMENTED: Bath & Body Works Products list');
-};
 // for a specific BBWORKS.
 exports.BBWORKS_detail = async function(req, res) {
     console.log("detail" + req.params.id)
@@ -15,10 +11,10 @@ exports.BBWORKS_detail = async function(req, res) {
     }
    };
    
-// Handle BBWORKS create on POST.
-exports.BBWORKS_create_post = function(req, res) {
- res.send('NOT IMPLEMENTED: Bath & Body Works Product create POST');
-};
+// // Handle BBWORKS create on POST.
+// exports.BBWORKS_create_post = function(req, res) {
+//  res.send('NOT IMPLEMENTED: Bath & Body Works Product create POST');
+// };
 // Handle BBWORKS delete form on DELETE.
 exports.BBWORKS_delete = async function(req, res) {
     console.log("delete " + req.params.id)
@@ -76,26 +72,33 @@ exports.BBWORKS_view_all_Page = async function(req, res) {
     }
    };
 
-   // Handle BBWORKS create on POST.
-exports.BBWORKS_create_post = async function(req, res) {
-    console.log(req.body)
-    let document = new BBWORKS();
-    // We are looking for a body, since POST does not have query parameters.
-    // Even though bodies can be in many different formats, we will be picky
-    // and require that it be a json object
-    // {"BBWORKS_type":"goat", "cost":12, "size":"large"}
-    document.PRODUCT_NAME = req.body.PRODUCT_NAME;
-    document.PRODUCT_COLLECTION = req.PRODUCT_COLLECTION;
-    document.PRODUCT_PRICE = req.body.PRODUCT_PRICE;
-    try{
-    let result = await document.save();
-    res.send(result);
-    }
-    catch(err){
-    res.status(500);
-    res.send(`{"error": ${err}}`);
-    }
+
+   // List of all BBWORKS
+   exports.BBWORKS_create_post = async function(req, res) {
+       console.log("Request body:", req.body); // Log the entire request body
+   
+       // Check if the request body is empty or does not contain the expected fields
+    //    if (!req.body || !req.body.PRODUCT_NAME || !req.body.PRODUCT_COLLECTION || !req.body.PRODUCT_PRICE) {
+    //        return res.status(400).json({ error: 'Invalid request body' });
+    //    }
+   
+       let document = new BBWORKS();
+   
+       // Corrected this line
+       document.PRODUCT_NAME = req.body.PRODUCT_NAME;
+       document.PRODUCT_COLLECTION = req.body.PRODUCT_COLLECTION;
+       document.PRODUCT_PRICE = req.body.PRODUCT_PRICE;
+   
+       try {
+           let result = await document.save();
+           console.log("Saved document:", result); // Log the saved document
+           res.status(201).json(result);
+       } catch (err) {
+           console.error('Error saving document:', err);
+           res.status(500).json({ error: 'Internal Server Error' });
+       }
    };
+   
 
    exports.BBWORKS_view_one_Page = async function(req, res) {
     console.log("single view for id " + req.query.id)
@@ -112,16 +115,16 @@ exports.BBWORKS_create_post = async function(req, res) {
 // Handle building the view for creating a costume.
 // No body, no in path parameter, no query.
 // Does not need to be async
-exports.BBWORKS_create_Page = async function(req, res) {
-    console.log("create view")
+exports.BBWORKS_create_Page = async function (req, res) {
+    console.log("create view");
+    console.log("Request body:", req.body);
     try {
-    res.render('BBWORKScreate', { title: 'BBWORKS Create'});
+        res.render('BBWORKScreate', { title: 'BBWORKS Create' });
+    } catch (err) {
+        console.error('Error creating BBWORKS item:', err);
+        res.status(500).json({ error: err.message || 'Internal Server Error' });
     }
-    catch(err){
-    res.status(500)
-    res.send(`{'error': '${err}'}`);
-    }
-    }; 
+};
 
 // Handle building the view for updating a costume.
 // query provides the id

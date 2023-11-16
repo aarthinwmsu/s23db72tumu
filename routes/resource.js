@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
 // Require controller modules.
 var api_controller = require('../controllers/api');
 var BBWORKS_controller = require('../controllers/BBWORKS');

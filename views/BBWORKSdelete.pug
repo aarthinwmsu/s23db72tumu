@@ -2,31 +2,55 @@ extends layout
 
 block content
     h1= title
-    form(id='BBWORKSForm', action="/resource/BBWORKS", method="DELETE")
-    div.form-group
-    label.BBWORKSAttr(for='PRODUCT_NAME') PRODUCT NAME
-    input#PRODUCT_NAME(type='text', name='PRODUCT_NAME')
-    div.form-group
-    label.BBWORKSAttr(for='PRODUCT_COLLECTION') PRODUCT COLLECTION
-    input#PRODUCT_COLLECTION(type='text', name='PRODUCT_COLLECTION')
-    div.form-group
-    label.BBWORKSAttr(for='PRODUCT_PRICE') PRODUCT PRICE
-    input#PRODUCT_PRICE(type='number', name='PRODUCT_PRICE')
-    input(type="submit")
-    script.
-        document.forms['BBWORKSForm'].addEventListener('submit', (event) => {
-        event.preventDefault();
-        // TODO do something here to show user that form is being submitted
-        fetch(event.target.action, {
-        method: 'DELETE',
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-        }).then((resp) => {
-        return resp.json(); // or resp.text() or whatever the server sends
-        }).then((body) => {
-        alert("Save succeded")
-        // TODO handle body
-        }).catch((error) => {
-        // TODO handle error
-        alert("Save failed " + error )
-        });
-        });
+
+    if(toShow == null)
+        h2 Product ID is not found.
+        p Enter Valid ID.
+
+    else
+        - let ProductId = toShow._id.toString()
+        - let PRODUCT_NAME = toShow.PRODUCT_NAME
+        - let PRODUCT_COLLECTION = toShow.PRODUCT_COLLECTION
+        - let PRODUCT_PRICE = toShow.PRODUCT_PRICE
+        - let actionId = "/resource/BBWORKS/" + ProductId
+        script let actionId = "#{actionId}"
+        div
+            div.row
+                div(class='BBWORKSAttr mr-3') PRODUCT ID is:
+                div #{ProductId}
+            div.row
+                div(class='BBWORKSAttr mr-3') PRODUCT NAME is:
+                div #{PRODUCT_NAME}
+            div.row
+                div(class='BBWORKSAttr mr-3') PRODUCT COLLECTION is:
+                div #{PRODUCT_COLLECTION}
+            div.row
+                div(class='BBWORKSAttr mr-3') PRODUCT PRICE is:
+                div #{PRODUCT_PRICE}
+
+            button(class="btn btn-danger m-2" onclick="deleteOnId()") Delete
+            button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+            
+        script.
+            function cancel() {
+            // Go back to the home page for the costume collection
+            window.location.href='/BBWORKS'
+            }
+
+        script.
+            function deleteOnId() {
+                console.log("starting delete")
+                // delete first
+                fetch(actionId, {
+                method: 'DELETE' // Don't need a body for the delete
+                }).then((resp) => {
+                return resp.json(); // or resp.text() or whatever the server sends
+                }).then((body) => {
+                alert("Delete succeeded")
+                window.location.href='/BBWORKS'
+                // TODO handle body
+                }).catch((error) => {
+                // TODO handle error
+                alert("Delete failed " + error )
+                });
+            }

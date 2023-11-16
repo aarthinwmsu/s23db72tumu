@@ -9,6 +9,9 @@
 // module.exports = router;
 
 var express = require('express');
+const cors = require('cors');
+const app = express();
+app.use(cors());
 const BBWORKS_controlers= require('../controllers/BBWORKS');
 var router = express.Router();
 /* GET BBWORKS */
@@ -21,4 +24,5 @@ router.get('/create', BBWORKS_controlers.BBWORKS_create_Page);
 router.get('/update', BBWORKS_controlers.BBWORKS_update_Page);
 /* GET delete BBWORKS page */
 router.get('/delete',  BBWORKS_controlers.BBWORKS_delete_Page);
+
 module.exports = router;

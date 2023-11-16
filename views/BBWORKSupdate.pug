@@ -2,31 +2,48 @@ extends layout
 
 block content
     h1= title
-    form(id='BBWORKSForm', action="/resource/BBWORKS", method="PUT")
-    div.form-group
-    label.BBWORKSAttr(for='PRODUCT_NAME') PRODUCT NAME
-    input#PRODUCT_NAME(type='text', name='PRODUCT_NAME')
-    div.form-group
-    label.BBWORKSAttr(for='PRODUCT_COLLECTION') PRODUCT COLLECTION
-    input#PRODUCT_COLLECTION(type='text', name='PRODUCT_COLLECTION')
-    div.form-group
-    label.BBWORKSAttr(for='PRODUCT_PRICE') PRODUCT PRICE
-    input#PRODUCT_PRICE(type='number', name='PRODUCT_PRICE')
-    input(type="submit")
-    script.
-        document.forms['BBWORKSForm'].addEventListener('submit', (event) => {
-        event.preventDefault();
-        // TODO do something here to show user that form is being submitted
-        fetch(event.target.action, {
-        method: 'PUT',
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-        }).then((resp) => {
-        return resp.json(); // or resp.text() or whatever the server sends
-        }).then((body) => {
-        alert("Save succeded")
-        // TODO handle body
-        }).catch((error) => {
-        // TODO handle error
-        alert("Save failed " + error )
-        });
-        });
+
+    if (toShow == null)
+        h6 Product ID is not found.
+        p Enter Valid ID.
+    else
+        - let Productid = toShow._id
+        - let Product_Name = toShow.PRODUCT_NAME
+        - let Product_Collection = toShow.PRODUCT_COLLECTION
+        - let Product_Price = toShow.PRODUCT_PRICE
+        console.log(toShow)
+
+        div.row(class='mb-2')
+        div.mr-1 ID is
+        div #{Productid}
+        - let actionid = "/resource/BBWORKS/" + Productid
+
+        form(id='BBWORKSForm', action=actionid , method="PUT", class="form-control")
+            div.form-group
+                label.BBWORKSAttr(for='PRODUCT_NAME') Product Name
+                input#PRODUCT_NAME(type='text', name='PRODUCT_NAME', value=PRODUCT_NAME)
+            div.form-group
+                label.BBWORKSAttr(for='PRODUCT_COLLECTION') Product Collection
+                input#PRODUCT_COLLECTION(type='text', name='PRODUCT_COLLECTION', value=PRODUCT_COLLECTION)
+            div.form-group
+                label.BBWORKSAttr(for='PRODUCT_PRICE') Product Price
+                input#PRODUCT_PRICE(type='number', name='PRODUCT_PRICE', value=PRODUCT_PRICE)
+            input(type="submit", class="btn btn-primary")
+
+        script.
+            document.forms['BBWORKSForm'].addEventListener('submit', (event) => {
+                event.preventDefault();
+                // TODO do something here to show user that form is being submitted
+                fetch(event.target.action, {
+                method: 'PUT',
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+                }).then((resp) => {
+                return resp.json(); // or resp.text() or whatever the server sends
+                }).then((body) => {
+                alert("Save succeded")
+                // TODO handle body
+                }).catch((error) => {
+                // TODO handle error
+                alert("Save failed " + error )
+                });
+            });
