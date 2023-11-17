@@ -11,16 +11,19 @@ block content
     //- ];
     let items = results
   div.container-fluid
-    div.row.d-flex.flex-row
+    div.row.d-m1.flex-row
       each prdt,index in items
-        div.col-sm-2(onclick=`buy(${index})`)
-          div
-            p PRODUCT_NAME: #{prdt.PRODUCT_NAME}
-            p PRODUCT_COLLECTION: #{prdt.PRODUCT_COLLECTION}
-            p PRODUCT_PRICE: $#{prdt.PRODUCT_PRICE}
+        - let destination = `dispatch(\"/BBWORKS/update?id=${prdt._id}\")`
+          div.col-sm-2(onclick=`buy(${index})`)
+          button.btn(class="btn-primary ml-1", onclick= destination) Update
+            div
+              p PRODUCT_NAME: #{prdt.PRODUCT_NAME}
+              p PRODUCT_COLLECTION: #{prdt.PRODUCT_COLLECTION}
+              p PRODUCT_PRICE: $#{prdt.PRODUCT_PRICE}
   script.
+    function dispatch(path) {
+      window.location.href=path
+    }
     function buy(index) {
       alert(`You purchased item ${index+1}.`);
     }
-   
-  
