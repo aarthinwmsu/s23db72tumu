@@ -5,7 +5,7 @@ block content
 
     if (toShow == null)
         h6 Product ID is not found.
-        p Enter Valid ID.
+        p(class='invalid') Enter Valid ID.
     else
         - let Productid = toShow._id
         - let Product_Name = toShow.PRODUCT_NAME
