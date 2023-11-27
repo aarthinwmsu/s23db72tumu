@@ -1,6 +1,8 @@
 extends layout
 
 block content
+  - let createdestination = `dispatch(\"/BBWORKS/create")`
+  button.btn(class="btn-primary m1-1", onclick= createdestination) CREATE A NEW PRODUCT
   h1= title
    -
     //- let results = [
@@ -13,13 +15,17 @@ block content
   div.container-fluid
     div.row.d-m1.flex-row
       each prdt,index in items
-        - let destination = `dispatch(\"/BBWORKS/update?id=${prdt._id}\")`
+        - let detailestination = `dispatch(\"/BBWORKS/detail?id=${prdt._id}\")`
+        - let updatedestination = `dispatch(\"/BBWORKS/update?id=${prdt._id}\")`
+        - let deletedestination = `dispatch(\"/BBWORKS/delete?id=${prdt._id}\")`
         div.col-sm-2(onclick=`buy(${index})`)
           div
             p PRODUCT_NAME: #{prdt.PRODUCT_NAME}
             p PRODUCT_COLLECTION: #{prdt.PRODUCT_COLLECTION}
             p PRODUCT_PRICE: $#{prdt.PRODUCT_PRICE}
-        button.btn(class="btn-primary ml-1", onclick= destination) Update
+        button.btn(class="btn-info ml-1", onclick= detailestination) Detail
+        button.btn(class="btn-warning ml-1", onclick= updatedestination) Update
+        button.btn(class="btn-danger ml-1", onclick= deletedestination) Delete
   script.
     function dispatch(path) {
       window.location.href=path
