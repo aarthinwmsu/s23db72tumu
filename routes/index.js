@@ -62,5 +62,10 @@ router.get('/', function (req, res) {
  router.post('/login', passport.authenticate('local'), function(req, res) {
   res.redirect('/');
  });
+// router.post('/login', passport.authenticate('local'), function(req, res) {
+//   if(req.session.returnTo)
+//     res.redirect(req.session.returnTo);
+//   res.redirect('/');
+//  });
 
 module.exports = router;
