@@ -8,14 +8,6 @@ app.use(cors());
 // Require controller modules.
 var api_controller = require('../controllers/api');
 var BBWORKS_controller = require('../controllers/BBWORKS');
-// const validation = (req, res, next) => {
-//     if ((req.body.PRODUCT_PRICE).isInt({ min: 1, max: 50 })){
-//     return next();
-//     }
-//     else{
-//     console.log("Validation Failure");
-//     }
-//     }
 // const validation = checkSchema({
 //     PRODUCT_PRICE: {
 //       isInt: {
